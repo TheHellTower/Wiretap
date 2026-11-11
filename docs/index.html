@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wiretap: see everything, understand everything, debug anything</title>
+<meta name="description" content="Wiretap is a security-first network debugger for Windows 10 and 11: every app's connections with their process, HTTPS decrypted with your consent, HTTP/1.1, HTTP/2, WebSocket, Server-Sent Events and gRPC decoded live, auto-reply and redirect rules.">
+<meta property="og:title" content="Wiretap">
+<meta property="og:description" content="A security-first network debugger for Windows: every app, every connection, HTTPS, WebSocket, SSE and gRPC, live.">
+<meta property="og:type" content="website">
+<meta name="color-scheme" content="dark">
+<!-- Self-contained: no scripts, fonts, trackers or third-party requests. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'unsafe-inline'; img-src 'self' data:; media-src 'self'; script-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'none'">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M3 18 Q8 6 12 16 T21 14 T29 12' fill='none' stroke='%2322d3ee' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #0a0d13; --panel: rgba(255, 255, 255, .035); --panel-solid: #11151d; --line: rgba(255, 255, 255, .08);
+    --text: #e6e9ef; --muted: #98a2b3; --dim: #667085; --a1: #22d3ee; --a2: #a78bfa; --ok: #34d399; --warn: #fbbf24;
+    --grad: linear-gradient(120deg, var(--a1), var(--a2));
+    --mono: ui-monospace, "Cascadia Code", Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif; }
+  body::before { content: ""; position: fixed; inset: -20%; z-index: -1; pointer-events: none;
+    background: radial-gradient(40% 35% at 15% 10%, rgba(34, 211, 238, .10), transparent 70%), radial-gradient(35% 30% at 85% 90%, rgba(167, 139, 250, .10), transparent 70%); }
+  a { color: var(--a1); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code { font-family: var(--mono); font-size: .9em; background: rgba(255, 255, 255, .06); padding: 1px 6px; border-radius: 5px; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  nav { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(14px); background: rgba(10, 13, 19, .75); border-bottom: 1px solid var(--line); }
+  nav .wrap { display: flex; align-items: center; gap: 22px; height: 56px; }
+  .brand { font-weight: 700; font-size: 18px; display: flex; align-items: center; gap: 9px; color: var(--text); }
+  .brand span { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  nav .links { display: flex; gap: 18px; margin-left: auto; font-size: 14px; }
+  nav .links a { color: var(--muted); }
+  nav .links a:hover { color: var(--text); text-decoration: none; }
+  header { padding: 88px 0 56px; text-align: center; }
+  h1 { font-size: clamp(36px, 6vw, 60px); line-height: 1.08; margin: 0 0 18px; letter-spacing: -1px; }
+  h1 em { font-style: normal; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .lead { font-size: 19px; color: var(--muted); max-width: 760px; margin: 0 auto 30px; }
+  .badges { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 30px; }
+  .badge { font-size: 12.5px; color: var(--muted); border: 1px solid var(--line); border-radius: 99px; padding: 4px 12px; background: var(--panel); }
+  .cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn { display: inline-block; padding: 11px 20px; border-radius: 11px; border: 1px solid var(--line); background: var(--panel); color: var(--text); font-weight: 600; }
+  .btn:hover { text-decoration: none; border-color: rgba(255, 255, 255, .2); }
+  .btn.primary { background: var(--grad); color: #071016; border: 0; }
+  section { padding: 64px 0; border-top: 1px solid var(--line); }
+  h2 { font-size: 30px; margin: 0 0 8px; letter-spacing: -.4px; }
+  .sub { color: var(--muted); margin: 0 0 32px; max-width: 760px; }
+  .video { border-radius: 16px; overflow: hidden; border: 1px solid var(--line); background: #000; box-shadow: 0 30px 80px rgba(0, 0, 0, .5); }
+  .video video { display: block; width: 100%; height: auto; }
+  .caption { color: var(--dim); font-size: 14px; margin-top: 12px; text-align: center; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 20px 22px; }
+  .card h3 { margin: 0 0 8px; font-size: 17px; }
+  .card p { margin: 0; color: var(--muted); font-size: 15px; }
+  .card ul { margin: 8px 0 0; padding-left: 18px; color: var(--muted); font-size: 15px; }
+  .flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; align-items: stretch; margin: 8px 0 28px; }
+  .step { background: var(--panel-solid); border: 1px solid var(--line); border-radius: 12px; padding: 16px; position: relative; }
+  .step b { display: block; margin-bottom: 6px; }
+  .step span { color: var(--muted); font-size: 14px; }
+  .step:not(:last-child)::after { content: "→"; position: absolute; right: -11px; top: 50%; transform: translateY(-50%); color: var(--a1); font-weight: 700; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: .5px; }
+  .done { color: var(--ok); font-weight: 600; white-space: nowrap; }
+  .next { color: var(--warn); font-weight: 600; white-space: nowrap; }
+  .later { color: var(--dim); font-weight: 600; white-space: nowrap; }
+  .note { background: rgba(251, 191, 36, .07); border: 1px solid rgba(251, 191, 36, .25); border-radius: 12px; padding: 14px 18px; color: var(--text); margin-top: 24px; }
+  footer { border-top: 1px solid var(--line); padding: 36px 0 56px; color: var(--dim); font-size: 14px; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 18px; justify-content: space-between; }
+  footer a { color: var(--muted); }
+  @media (max-width: 760px) {
+    nav .links { display: none; }
+    .flow { grid-template-columns: 1fr; }
+    .step:not(:last-child)::after { content: "↓"; right: auto; left: 50%; top: auto; bottom: -19px; transform: translateX(-50%); }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<nav aria-label="Main">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Wiretap home">
+      <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><path d="M3 18 Q8 6 12 16 T21 14 T29 12" fill="none" stroke="#22d3ee" stroke-width="3.2" stroke-linecap="round"/></svg>
+      <span>Wiretap</span>
+    </a>
+    <div class="links">
+      <a href="#preview">Preview</a>
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#security">Security</a>
+      <a href="#status">Status</a>
+      <a href="#install">Install</a>
+      <a href="https://github.com/TheHellTower/Wiretap">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<header id="top">
+  <div class="wrap">
+    <h1>See everything.<br><em>Understand everything.</em> Debug anything.</h1>
+    <p class="lead">Wiretap is a security-first network debugger for Windows 10 and 11. Every app's connections appear live with the process that made them; HTTP and HTTPS are recorded in full, bodies included; WebSocket, Server-Sent Events and gRPC are decoded message by message. Its own desktop app, written in Rust, with a small kernel driver.</p>
+    <div class="badges">
+      <span class="badge">Windows 10 &amp; 11 x64</span>
+      <span class="badge">Rust</span>
+      <span class="badge">WFP kernel driver</span>
+      <span class="badge">HTTP/1.1 · HTTP/2</span>
+      <span class="badge">WebSocket · SSE · gRPC</span>
+      <span class="badge">v0.2 in development</span>
+    </div>
+    <div class="cta">
+      <a class="btn primary" href="#preview">Watch the preview</a>
+      <a class="btn" href="https://github.com/TheHellTower/Wiretap">Source on GitHub</a>
+      <a class="btn" href="https://github.com/TheHellTower/Wiretap/blob/main/PROGRESS.md">Progress</a>
+    </div>
+  </div>
+</header>
+
+<section id="preview">
+  <div class="wrap">
+    <h2>Two minutes, one take</h2>
+    <p class="sub">One continuous, unedited recording on Windows 11 (Hyper-V lab VM, Driver Verifier on): a capture, Edge on httpbin.org decrypted as HTTP/2, the filter with auto-complete, an auto-reply rule built from a request, a WebSocket conversation, live Server-Sent Events, gRPC calls, developer mode, and stopping the capture.</p>
+    <div class="video">
+      <video controls muted playsinline preload="metadata">
+        <source src="media/wiretap-preview.mp4" type="video/mp4">
+        Your browser cannot play this video: <a href="media/wiretap-preview.mp4">download it (MP4)</a>.
+      </video>
+    </div>
+    <p class="caption">Video not playing? <a href="https://www.youtube-nocookie.com/embed/224w0e_bRAY">Watch it on YouTube</a> or <a href="media/wiretap-preview.mp4">download the MP4</a>.</p>
+  </div>
+</section>
+
+<section id="features">
+  <div class="wrap">
+    <h2>What it does</h2>
+    <p class="sub">The goal is one tool that combines what HTTP Debugger Pro, Fiddler, mitmproxy and Wireshark do, on a small, tested core.</p>
+    <div class="grid">
+      <div class="card"><h3>Every app, every connection</h3><p>Start a capture and every TCP and UDP connection of every app appears live with its process. HTTP and HTTPS are sent through Wiretap's local proxy automatically: no proxy settings, nothing to configure per app.</p></div>
+      <div class="card"><h3>HTTPS, with your consent</h3><p>Decryption is opt-in: Windows itself asks you to trust a per-user Wiretap root, whose key cannot be exported. Servers are verified like a browser would; anything Wiretap cannot verify is passed through untouched.</p></div>
+      <div class="card"><h3>HTTP/1.1 and HTTP/2</h3><p>Every request its own row: method, URL, headers, bodies, timing. Keep-alive and pipelining; HTTP/2 streams, HPACK, trailers and server push, relayed frame for frame. gzip, deflate, Brotli and Zstandard bodies shown decoded.</p></div>
+      <div class="card"><h3>WebSocket, SSE and gRPC</h3><p>A live Messages tab, like browser developer tools: WebSocket messages (with <code>permessage-deflate</code>), Server-Sent Events as they arrive, gRPC and gRPC-Web messages shown as Protocol Buffers, and the call status (failed calls show <code>gRPC 5</code>).</p></div>
+      <div class="card"><h3>Rules</h3><p>Auto-reply (Wiretap answers, the server is never contacted) or redirect to another server, over HTTP/1.x and HTTP/2. Create one from any captured request; templates such as <code>{{request.path}}</code>; share groups as <code>.wtrr</code> files.</p></div>
+      <div class="card"><h3>Never breaks traffic</h3><p>Apps that pin their certificates, Windows services and apps that refuse the Wiretap certificate are relayed untouched, with their clear-text TLS details still shown. No idle limits: WebSockets and streams live as long as their endpoints, even after the capture stops.</p></div>
+      <div class="card"><h3>Search that knows your traffic</h3><p>Field filters such as <code>host:</code>, <code>app:</code>, <code>status:4xx</code>, <code>type:</code> and <code>-</code> to exclude, with auto-complete from what you captured.</p></div>
+      <div class="card"><h3>Sessions and HAR</h3><p>Every capture is stored in a local SQLite database with a quota and tamper detection. HAR 1.2 import and export, WebSocket messages included.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <h2>How it works</h2>
+    <p class="sub">A small kernel driver does as little as possible; everything that parses traffic runs in user mode, in memory-safe Rust.</p>
+    <div class="flow" role="list">
+      <div class="step" role="listitem"><b>Your apps</b><span>Edge, services, any program: nothing to configure.</span></div>
+      <div class="step" role="listitem"><b>WiretapDriver</b><span>Windows Filtering Platform callouts: sees each connection and its process; while capturing, sends TCP 80/443 to the proxy.</span></div>
+      <div class="step" role="listitem"><b>Wiretap proxy</b><span>Decrypts (if allowed), decodes HTTP/1, HTTP/2, WebSocket, SSE and gRPC, applies rules, then talks to the real server.</span></div>
+      <div class="step" role="listitem"><b>The app</b><span>Live lists, request details, Messages tab, rules, sessions. Stored in SQLite.</span></div>
+    </div>
+    <div class="grid">
+      <div class="card"><h3>Privilege split</h3><p>The app runs as you. Only capturing asks for administrator rights (it loads the driver and installs its filters). The driver parses nothing it receives from user mode beyond one fixed-size, validated setting.</p></div>
+      <div class="card"><h3>One language-neutral model</h3><p>Every event and flow serializes to one stable JSON shape (snake_case, UUIDs, microsecond timestamps), the contract future SDKs will build on: Python first, then .NET, C++, Rust and Go.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="security">
+  <div class="wrap">
+    <h2>Security by design</h2>
+    <p class="sub">A debugger that sees decrypted traffic must not become a weakness itself. The full analysis is in the <a href="https://github.com/TheHellTower/Wiretap/blob/main/docs/security/threat-model.md">threat model</a>.</p>
+    <div class="grid">
+      <div class="card"><h3>A small, safe driver</h3><ul>
+        <li>Redirects only TCP 80/443 to Wiretap's own proxy, and blocks QUIC while capturing; never modifies or injects data; fails open on any error.</li>
+        <li>One device, SYSTEM and Administrators only, three IOCTLs; no memory, process, file, registry or token operations.</li>
+        <li>No panic path in the release build (checked at link time); never unloads under connections it redirected.</li>
+      </ul></div>
+      <div class="card"><h3>Honest, bounded parsing</h3><ul>
+        <li>Every parser is bounded, panic-free, tested against official vectors and fuzzed (21 fuzz targets, replayed on every build).</li>
+        <li>Encrypted traffic is never labelled as decrypted; the data model rejects it.</li>
+        <li>Captured data cannot inject into the UI, HTTP or terminals.</li>
+      </ul></div>
+      <div class="card"><h3>Your keys, your consent</h3><ul>
+        <li>The Wiretap root is per user, its key non-exportable, trusted only through Windows' own dialog, and deleted when you turn decryption off.</li>
+        <li>The UI is served on loopback only, behind a per-run token, with strict origin checks and a strict content policy.</li>
+      </ul></div>
+      <div class="card"><h3>Small supply chain</h3><ul>
+        <li>Four runtime dependencies, all on their newest versions, checked by <code>cargo deny</code> and <code>cargo audit</code>; locked builds.</li>
+        <li>Windows' own TLS stack (SChannel) and key storage (CNG); the WebView2 loader pinned by version and SHA-512.</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="status">
+  <div class="wrap">
+    <h2>Status</h2>
+    <p class="sub">v0.2 is in development. What is done is covered by automated tests and checked by hand on Windows 11 under Driver Verifier. The detailed list is in <a href="https://github.com/TheHellTower/Wiretap/blob/main/PROGRESS.md">PROGRESS.md</a>.</p>
+    <table>
+      <thead><tr><th>Area</th><th>State</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Connections with their process (TCP, UDP)</td><td class="done">Done</td><td>Live, every app</td></tr>
+        <tr><td>HTTPS decryption</td><td class="done">Done</td><td>Opt-in, Windows' own TLS (TLS 1.0 to 1.3 as Windows enables them)</td></tr>
+        <tr><td>HTTP/1.0, HTTP/1.1, HTTP/2</td><td class="done">Done</td><td>Keep-alive, pipelining, HPACK, push, trailers, h2c</td></tr>
+        <tr><td>WebSocket, Server-Sent Events</td><td class="done">Done</td><td>Live Messages tab; WebSocket over HTTP/2 too</td></tr>
+        <tr><td>gRPC, gRPC-Web</td><td class="done">Done</td><td>Protobuf view without the schema; <code>.proto</code> import planned</td></tr>
+        <tr><td>Auto-reply and redirect rules</td><td class="done">Done</td><td>HTTP/1.x and HTTP/2</td></tr>
+        <tr><td>QUIC and HTTP/3</td><td class="next">Next</td><td>Blocked while capturing today, so browsers use TCP</td></tr>
+        <tr><td>Rules on messages, breakpoints, edit-and-resend</td><td class="later">Planned</td><td></td></tr>
+        <tr><td>DNS, packet capture and PCAPNG, OpenAPI generation</td><td class="later">Planned</td><td>No Npcap</td></tr>
+        <tr><td>Local API and SDKs, TUI, MCP</td><td class="later">Planned</td><td>SDKs in separate repositories</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="install">
+  <div class="wrap">
+    <h2>Requirements</h2>
+    <p class="sub">Step-by-step instructions are in the <a href="https://github.com/TheHellTower/Wiretap/blob/main/SETUP.md">setup guide</a>.</p>
+    <div class="grid">
+      <div class="card"><h3>Windows</h3><p>Windows 10 22H2 or Enterprise LTSC 2021, Windows 11 24H2 or 25H2; x64 client editions. Windows Server and ARM64 are not supported.</p></div>
+      <div class="card"><h3>Rights</h3><p>An administrator account: the app runs as you, and only capturing asks for elevation.</p></div>
+      <div class="card"><h3>Driver signing</h3><p>Release packages will carry a Microsoft-signed driver and install with Secure Boot and Memory Integrity on. v0.2 is built as a test package, for lab machines and VMs only.</p></div>
+    </div>
+    <p class="note">There is no public release yet. Wiretap is tested by hand on Windows 11 build 22621 in a VM; Windows 10 and newer Windows 11 builds are not yet tested.</p>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <h2>About this project</h2>
+    <p class="sub">Wiretap is a vibecoded, human-guided experiment: how far can AI help build a Windows network debugger, kernel driver included, when a person sets the direction and reviews the work? It is intentionally kept simple for learning and experimentation and is not designed to become a product.</p>
+    <p class="sub">Development is published in gradual research checkpoints. Each one adds a limited set of capabilities, documents what was tested and what remains open, so you can follow and judge the progress over time. Most of the code, tests and documentation are written by an AI coding assistant (Claude, by Anthropic) from requirements the maintainer sets; the maintainer directs, reviews and tests on real Windows. AI-written code can be confidently wrong, so Wiretap relies on machinery rather than trust: strict lints, tests for every rule, fuzzing of every parser, layout checks of every kernel binding, supply-chain checks, and no claim of support without a test.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>Wiretap · <a href="https://github.com/TheHellTower">TheHellTower</a></div>
+    <div>
+      <a href="https://github.com/TheHellTower/Wiretap">Repository</a> ·
+      <a href="https://github.com/TheHellTower/Wiretap/blob/main/README.md">README</a> ·
+      <a href="https://github.com/TheHellTower/Wiretap/blob/main/PROGRESS.md">Progress</a> ·
+      <a href="https://github.com/TheHellTower/Wiretap/blob/main/SECURITY.md">Security</a> ·
+      <a href="https://github.com/TheHellTower/Wiretap/tree/main/docs">Docs</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

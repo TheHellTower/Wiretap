@@ -1,6 +1,6 @@
 [package]
 name = "wiretap-protocol"
-description = "Bounded, panic-free decoders for HTTP/1.x message heads and TLS ClientHello metadata"
+description = "Bounded, panic-free decoders: HTTP/1.x, HTTP/2 and HPACK, WebSocket, Server-Sent Events, gRPC and protobuf, TLS metadata"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true

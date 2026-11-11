@@ -1,6 +1,6 @@
 [package]
 name = "wiretap-proxy"
-description = "Explicit HTTP/1.1 proxy that records exchanges and applies automatic responses"
+description = "The Wiretap proxy: explicit and transparent, HTTP/1.x and HTTP/2, WebSocket, SSE and gRPC, rules"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true

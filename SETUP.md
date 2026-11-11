@@ -1,6 +1,6 @@
 # Wiretap setup
 
-This guide covers installing, using and removing Wiretap v0.1.
+This guide covers installing, using and removing Wiretap v0.2.
 
 ## 1. Requirements
 
@@ -18,7 +18,7 @@ The driver must be signed for Windows to load it:
 - **Release package (Microsoft-signed driver):** installs on normal machines with Secure Boot and Memory Integrity on. No security setting changes. This is what end users should use.
 - **Test package (test-signed driver, lab only):** loads only on a machine in *test-signing mode*, which requires Secure Boot to be off. Use it only in a virtual machine or a dedicated test machine, never on a machine you rely on.
 
-v0.1 is currently built as a test package; a Microsoft-signed release package is part of the release process in [RELEASE.md](RELEASE.md).
+v0.2 is currently built as a test package; a Microsoft-signed release package is part of the release process in [RELEASE.md](RELEASE.md).
 
 ## 3. Install
 
