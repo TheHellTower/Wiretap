@@ -80,12 +80,14 @@ jobs:
 
           See [PROGRESS.md](https://github.com/$env:GITHUB_REPOSITORY/blob/main/PROGRESS.md) for what this version does and what remains open.
           "@
-          function Gh { gh @args; if ($LASTEXITCODE -ne 0) { throw "gh $($args[0..1] -join ' ') failed" } }
-          $existing = gh release view $env:TAG --json isDraft --jq .isDraft 2>$null
+          # gh.exe by name: PowerShell names are case-insensitive, so a function named like the
+          # command would call itself.
+          function Invoke-Gh { gh.exe @args; if ($LASTEXITCODE -ne 0) { throw "gh $($args[0..1] -join ' ') failed" } }
+          $existing = gh.exe release view $env:TAG --json isDraft --jq .isDraft 2>$null
           if ($LASTEXITCODE -eq 0) {
             if ($existing -ne 'true') { throw "release $env:TAG is already published: refusing to change it" }
-            Gh release upload $env:TAG @files --clobber
-            Gh release edit $env:TAG --notes $notes
+            Invoke-Gh release upload $env:TAG @files --clobber
+            Invoke-Gh release edit $env:TAG --notes $notes
           } else {
-            Gh release create $env:TAG @files --draft --title "Wiretap $env:VERSION" --notes $notes --target $env:GITHUB_SHA
+            Invoke-Gh release create $env:TAG @files --draft --title "Wiretap $env:VERSION" --notes $notes --target $env:GITHUB_SHA
           }
