@@ -1,0 +1,8 @@
+POST /api/rule HTTP/1.1
+Host: 127.0.0.1:5000
+Cookie: w:5000
+Cookie: 00
+Cookie: Й01:5000
+Cookie:       н 00
+Cookie: Й╢Наt■  d00.1:50d00.1:5000
+

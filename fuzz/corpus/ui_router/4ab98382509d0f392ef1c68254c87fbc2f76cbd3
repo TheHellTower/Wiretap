@@ -1,0 +1,26 @@
+POST /api/rules HTTP/1.1
+Host: 1271.1
+Host: 12 ;rtap=tݔ̑
+Op://ap=tٔ̑
+Op://127.0.0.;rpi/rules HTTP/1.1
+Host: 1271.1
+Host: 12 ;rtap=tٔ̑
+Op://ap=tٔ̑
+Op://127.0.0.;rtap=tٔ̑
+Op://ap=tٔ̑
+Op://127.0.tap=t�ٔ̑
+Op://ap=tٔ̑TP/1.1
+Host: 1271.1
+Host: 12 ;rtap=tݔ̑
+Op://ap=tٔ̑
+Op://127.0.0.;rpi/rules HTTP/1.1
+Host: 1271.1
+Host: 12 ;rtap=tٔ̑
+Op://ap=tٔ̑
+Op://127.0.0.;rtap=tٔ̑
+Op://ap=tٔ̑
+Op://127.0.tap=t�ٔ̑
+Op://ap=tٔ̑
+Op://127.0.0.
+Op://127.0.0.:5000
+

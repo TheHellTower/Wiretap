@@ -1,0 +1,17 @@
+{ "client": {
+    "ip": "127.0.0.1",
+    "port": 50000
+  },
+  "server": {
+    "ip": "93.184.216.34",
+    "port": 443
+  },
+  "request": {
+    "method": "POST",
+    "url": "https://exam3ple.com/api/items?page=3",
+    "version": "HTTP/1.1",
+ 			im   "headers": 			D				l
+  },
+  "timinapi"
+  ]
+}

@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wiretap</title>
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/app.css">
+<script src="/app.js" defer></script>
+</head>
+<body>
+<div class="aurora" aria-hidden="true"></div>
+
+<header class="top">
+  <div class="brand"><img src="/icon.svg" alt=""><span>Wiretap</span></div>
+  <button id="capture" class="btn capture" title="Load the driver and capture all connections (asks for administrator approval)">
+    <span class="dot"></span><span class="label">Start capture</span>
+  </button>
+  <button id="https" class="btn ghost" title="Decrypt HTTPS that goes through the Wiretap proxy. Windows asks you before it trusts the Wiretap root certificate."><span class="dot small"></span><span class="label">HTTPS decryption</span></button>
+  <button id="browser" class="btn ghost" title="Open a browser window that sends everything through Wiretap (full requests, responses and bodies)">Open browser</button>
+  <button id="clear" class="btn ghost" title="Clear the current view">Clear</button>
+  <select id="session" aria-label="Session"></select>
+  <div class="search">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+    <input id="search" placeholder="Filter requests…" title="Filter: free text, or app:msedge  host:*.example.com  method:post  status:4xx  type:json  url:/api  header:x-id  source:proxy. Wildcards * and ?, prefix - to exclude (-host:bing). Ctrl+F to focus." spellcheck="false" autocomplete="off">
+  </div>
+  <div class="chips">
+    <span class="chip" id="chip-http"><b>0</b> requests</span>
+    <span class="chip" id="chip-conn"><b>0</b> connections</span>
+    <span class="chip" id="chip-tls"><b>0</b> TLS</span>
+  </div>
+</header>
+
+<nav class="rail">
+  <button data-view="traffic" class="active" title="Traffic"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h16"/></svg></button>
+  <button data-view="connections" class="dev-only" title="Connections &amp; TLS (developer mode)"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M8 7.5 11 16M16 7.5 13 16M8.5 6h7"/></svg></button>
+  <button data-view="rules" title="Rules: auto-replies and redirects"><svg viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></svg></button>
+  <button data-view="sessions" title="Sessions"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="6" rx="2"/><rect x="4" y="14" width="16" height="6" rx="2"/></svg></button>
+  <span class="grow"></span>
+  <button data-view="system" title="System"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/></svg></button>
+</nav>
+
+<main>
+  <section id="view-traffic" class="view active">
+    <div class="filters">
+      <select id="f-app"><option value="">All applications</option></select>
+      <select id="f-host"><option value="">All domains</option></select>
+      <select id="f-method"><option value="">All methods</option></select>
+      <select id="f-status"><option value="">All statuses</option><option>2xx</option><option>3xx</option><option>4xx</option><option>5xx</option><option value="none">No response</option></select>
+      <select id="f-type"><option value="">All types</option></select>
+      <select id="f-source"><option value="">All sources</option><option value="driver">Driver</option><option value="proxy">Proxy</option><option value="auto">Auto-reply</option></select>
+      <span class="grow"></span>
+      <span id="match-banner" class="banner hidden"><span></span><button class="link" id="match-clear">show all</button></span>
+      <span class="count" id="f-count">0</span>
+    </div>
+    <div class="table" id="flows"></div>
+    <div class="splitter" id="split" title="Drag to resize"></div>
+    <div class="details" id="details">
+      <div class="detail-bar">
+        <span id="sel-title" class="sel-title">Select a request</span>
+        <span class="grow"></span>
+        <button class="btn small" id="act-rule" disabled>Create auto-reply</button>
+        <button class="btn small ghost" id="act-curl" disabled>Copy as cURL</button>
+        <button class="btn small ghost" id="act-url" disabled>Copy URL</button>
+      </div>
+      <div class="panes">
+        <div class="pane" id="pane-req">
+          <div class="pane-head"><h3>Request</h3>
+            <div class="tabs"><button class="active" data-tab="headers">Headers</button><button data-tab="body">Body</button><button data-tab="raw">Raw</button><button data-tab="info">Info</button></div>
+            <input class="pane-filter" placeholder="Filter headers" spellcheck="false">
+          </div>
+          <div class="pane-body"></div>
+        </div>
+        <div class="pane" id="pane-res">
+          <div class="pane-head"><h3>Response</h3>
+            <div class="tabs"><button class="active" data-tab="headers">Headers</button><button data-tab="body">Body</button><button data-tab="raw">Raw</button><button data-tab="messages" hidden>Messages</button></div>
+            <input class="pane-filter" placeholder="Filter headers" spellcheck="false">
+          </div>
+          <div class="pane-body"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="view-connections" class="view">
+    <div class="filters">
+      <select id="c-app"><option value="">All applications</option></select>
+      <select id="c-proto"><option value="">All protocols</option><option>TCP</option><option>UDP</option><option>TLS</option><option>ICMP</option></select>
+      <span class="grow"></span>
+      <span class="count" id="c-count">0</span>
+    </div>
+    <div class="table" id="conns"></div>
+  </section>
+
+  <section id="view-rules" class="view">
+    <div class="rules">
+      <aside class="rule-list">
+        <div class="rule-tools">
+          <button class="btn small" id="r-new">New rule</button>
+          <button class="btn small ghost" id="r-import">Import</button>
+          <button class="btn small ghost" id="r-export">Export</button>
+          <input type="file" id="r-file" accept=".wtrr,.json,application/json" hidden>
+        </div>
+        <ol id="r-list"></ol>
+        <p class="hint">Each request gets one outcome: the first matching redirect, else the first matching auto-reply, else its real server. Groups export and import as <b>.wtrr</b> files to share.</p>
+      </aside>
+      <div class="rule-editor" id="r-editor">
+        <div class="empty">Select a rule, or pick a request in Traffic and choose <b>Create auto-reply</b>: the response starts as the original one.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="view-sessions" class="view">
+    <div class="cards" id="s-list"></div>
+  </section>
+
+  <section id="view-system" class="view">
+    <div class="system" id="sys"></div>
+  </section>
+</main>
+
+<footer class="status">
+  <span id="st-capture" class="pill">Driver idle</span>
+  <span id="st-proxy" class="pill">Proxy starting…</span>
+  <span id="st-msg"></span>
+  <span class="grow"></span>
+  <span id="st-counts"></span>
+</footer>
+<div id="toasts"></div>
+</body>
+</html>

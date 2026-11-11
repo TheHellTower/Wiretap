@@ -1,0 +1,4 @@
+POST /inteSal/feet HTTP/1.1
+Host: 127.002
+Au-Au-horizat: Bearer; k3y
+

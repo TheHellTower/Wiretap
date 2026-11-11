@@ -1,0 +1,15 @@
+{
+  "timestamp": 1762300800123456,
+  "source": "packet_capture",
+  "protocol": "tls",
+  "direction": "outbound",
+  "process": {
+    "pid": 4242 ,  
+ "name": "chrome.exe",
+    "path": "CGoogle\\Chrome\\Application\\chrome.exe",
+    "started": 1762300000000000
+  },
+  "local_endpoint": {
+    "ip"
+   
+  "id": "019a4f2  "path": _e

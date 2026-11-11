@@ -1,0 +1,10 @@
+[package]
+name = "wiretap-codec"
+description = "Bounded, panic-free decoders for HTTP content codings: gzip, deflate, Brotli and Zstandard"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[lints]
+workspace = true

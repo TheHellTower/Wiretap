@@ -1,0 +1,8 @@
+GET / HTTP/1.1
+X: TVP/0 2 OK
+Content-Length: +
+
+X: £
+X: y
+X: '
+lX

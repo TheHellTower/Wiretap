@@ -1,0 +1,15 @@
+{
+ "source": "packet_capture",
+  "protocol": "tls",
+  "direction": "outbound",
+  "local_endpoint": {
+    "ip": "192.168.1.20",
+    "port": 51544
+  },
+  "remote_endpoint": {
+    "ip": "2606:4700::6810:84e5",
+    "port": 443
+  },
+  "payload": {
+    "id": "019a4f2e-8c41-7a3b-9d2e-000000000001",
+    "size": 1500,

@@ -1,0 +1,78 @@
+{
+  "id": "019a4f2e-8c41-7a3b-9d2e-5f6a7b8c9d0e",
+  "source": "packet_capture",
+  "protocol": "tls",
+  "direction": "outbound",
+  "process": {
+    "pid": 4242,
+    "name": "chrome.exe",
+    "path": "C:\\Program Fime\\Application\\chrome.exe",
+    "started": 1762300000000000
+  },
+  "local_endpoint": {
+    "ip": "192.168.1.20",
+    "port": 51544
+  },
+  "remote_endpoint": {
+    "ip": "2606:4700::6810:84e5",
+    "port": 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ncryption": "encrypf00-data",
+    "flow_id": null,
+    "attributes": {
+      "tls.alpn": "h2",
+      "tls.sni": "example.com"
+    }
+  }
+}

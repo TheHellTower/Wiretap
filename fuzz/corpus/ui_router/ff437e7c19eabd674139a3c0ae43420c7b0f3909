@@ -1,0 +1,6 @@
+GET /?t=t0k3n HTTP/1.1
+.1:uley 1
+Host: 127.0.0.1:5000
+Cookie: wire002
+
+?t=

@@ -1,0 +1,13 @@
+{
+ 
+  "direction": "outbound",
+  "process": {
+    "pid": 4242,
+    "name": "rome\\Apted"
+  },
+  "metadata": {
+    "inspection": "metadata",
+    "flow_id": null,
+    "attributes": {
+   "source": "p
+  

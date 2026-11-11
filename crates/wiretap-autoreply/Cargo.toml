@@ -1,0 +1,15 @@
+[package]
+name = "wiretap-autoreply"
+description = "Automatic-response rules: bounded matching engine and safe response templates"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+wiretap-core.workspace = true
+
+[lints]
+workspace = true

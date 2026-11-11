@@ -1,0 +1,13 @@
+GET / HTTP/1.1
+X:TP/1.2
+Content-Length: 3
+Transfer-Encoding:
+X: y
+X: y
+X: yX: y
+X: y
+X: y
+X: y
+''''''''''ansecoding: 
+X: y
+

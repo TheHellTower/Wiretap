@@ -1,0 +1,50 @@
+;
+; WiretapDriver.inf - primitive (non-PnP) driver package for Wiretap's inspection-only
+; Windows Filtering Platform callout driver. Install: pnputil /add-driver WiretapDriver.inf /install
+;
+[Version]
+Signature   = "$WINDOWS NT$"
+Class       = WFPCALLOUTS
+ClassGuid   = {57465043-616C-6C6F-7574-5F636C617373}
+Provider    = %ProviderName%
+CatalogFile = WiretapDriver.cat
+DriverVer   = 11/04/2026,0.1.0.0
+PnpLockdown = 1
+
+[SourceDisksNames]
+1 = %DiskName%
+
+[SourceDisksFiles]
+WiretapDriver.sys = 1
+
+[DestinationDirs]
+DefaultDestDir = 13
+
+[DefaultInstall.NTamd64]
+CopyFiles = Wiretap.Files
+
+[DefaultInstall.NTamd64.Services]
+AddService = WiretapDriver, , Wiretap.Service
+
+[DefaultUninstall.NTamd64]
+LegacyUninstall = 1
+
+[DefaultUninstall.NTamd64.Services]
+DelService = WiretapDriver, 0x200
+
+[Wiretap.Files]
+WiretapDriver.sys
+
+[Wiretap.Service]
+DisplayName   = %ServiceName%
+Description   = %ServiceDesc%
+ServiceType   = 1
+StartType     = 3
+ErrorControl  = 1
+ServiceBinary = %13%\WiretapDriver.sys
+
+[Strings]
+ProviderName = "Wiretap"
+DiskName     = "Wiretap driver package"
+ServiceName  = "Wiretap WFP callout driver"
+ServiceDesc  = "Inspection-only Windows Filtering Platform callouts used by Wiretap. Never blocks or modifies traffic."

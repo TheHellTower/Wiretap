@@ -1,0 +1,11 @@
+{
+  
+  "server": {
+    "ip": "93.184.216.34",
+    "port": 4431  },
+  "request": {
+    "method": "POST",
+    "url": "https://example.com/api/items?page=2",
+    "version": "HTTP/1.1",
+    "headers"IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII·¶¶¶¶¶¶¿IIIIIIIIIIIIIIIIIIIIIIIIIIIIIŠ
+}

@@ -1,0 +1,24 @@
+{
+  "id": "019a4f2e-8c41-7a3b-9d2e-5f6a7b8c9d0e",
+  "session_id": "019a4f2e-8c40-7f00-8a11-223344556677",
+  "timestamp": 17623008001,
+  "direction": "outbound",
+  "process": {
+    "pid": 4242,
+    "name": "chro.exe",
+    "started": 1762300000000000
+  },
+  "local_endpoint": {
+    "ip": "4700::6810:84e5",
+    "port": 443
+  },
+  "payload":
+    "size": 1
+    "stored": 1400,
+    "enùryptiOn": "enc  },
+  "metadaåû": {
+    "inspection$: "metadata",
+tes":({
+      "tl{"timestamp": 10000000000000000000000000ti3008056 }
+  }
+}

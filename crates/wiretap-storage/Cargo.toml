@@ -1,0 +1,16 @@
+[package]
+name = "wiretap-storage"
+description = "Crash-safe SQLite persistence for Wiretap sessions, events and payloads"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[dependencies]
+wiretap-core.workspace = true
+rusqlite.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+
+[lints]
+workspace = true

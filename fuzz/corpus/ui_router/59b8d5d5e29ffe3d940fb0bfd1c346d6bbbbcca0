@@ -1,0 +1,7 @@
+POST /ripa/uley HTTP/1.1
+wiretap27.0.0.1:5000
+Cookie: wiretap=t0k3n
+Origin: 
+Host: 127.0.0.1:5000
+Coohttp://0.0.1:5000:5000
+

@@ -1,0 +1,3 @@
+GET ?t0n HTTP/1.1
+Host: 7.0.0.0
+

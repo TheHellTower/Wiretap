@@ -1,0 +1,11 @@
+POST /,pirule0 HTTP/1.0
+Host: 127.0.0.1:5000
+Cook1:500
+Cookie:
+0e: wire1но.1:500Cookie: wire1но.1:5000
+Cookie:
+0.Cookie: wire1но.1:2500
+Cookie:
+Cook.0.1:5005
+
+-

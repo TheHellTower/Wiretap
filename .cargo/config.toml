@@ -1,0 +1,4 @@
+# Link the C runtime statically so wiretap.exe runs on clean Windows installations without
+# the Visual C++ Redistributable (found by the Windows Sandbox test).
+[target.x86_64-pc-windows-msvc]
+rustflags = ["-C", "target-feature=+crt-static"]

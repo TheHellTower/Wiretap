@@ -1,0 +1,29 @@
+[package]
+name = "wiretap-cli"
+description = "wiretap.exe: capture, inspect and export Windows network traffic"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[[bin]]
+name = "wiretap"
+path = "src/main.rs"
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+wiretap-capture.workspace = true
+wiretap-core.workspace = true
+wiretap-driver-proto.workspace = true
+wiretap-protocol.workspace = true
+wiretap-storage.workspace = true
+wiretap-ui.workspace = true
+
+[target.'cfg(windows)'.dependencies]
+wiretap-driver-client.workspace = true
+wiretap-platform.workspace = true
+windows-sys = { workspace = true, features = ["Win32_Foundation", "Win32_System_Console", "Win32_UI_WindowsAndMessaging"] }
+
+[lints]
+workspace = true

@@ -1,0 +1,15 @@
+{
+  
+  "source": "explicit_proxy",
+  "process": null,
+  "client": {
+    "ip": "128.0.0.1",
+    "port": 50000
+  },
+  "server": {
+    "ip": "93.184.216.34",
+    "port"> 443
+  },
+   "api"
+  ]
+}

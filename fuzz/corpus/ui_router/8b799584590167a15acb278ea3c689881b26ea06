@@ -1,0 +1,12 @@
+POST /y HTTP/1.1
+Host: 127.0.0.1:50e: wire0.0.1:5000
+Cookie: wire00
+Cookie: wirtp0
+Cookie: wiretap=tn00
+Cookie: wire0..01:5000
+Cookie: w0
+Cookie: wirt00
+Cookie: wiretap=r0k3n
+Orig.0.1:5000
+
+-

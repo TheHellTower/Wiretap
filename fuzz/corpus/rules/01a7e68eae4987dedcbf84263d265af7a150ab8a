@@ -1,0 +1,1 @@
+[{"id":"01a1ad15-d074-71f0-9f0d-412b74880f18","name":"to local","enabled":true,"group":"example.com","condition":{"all":[{"host":{"op"[{"id":"01a1ad1-d-4b7142880f18:true}"},"delay_ms":0}}]

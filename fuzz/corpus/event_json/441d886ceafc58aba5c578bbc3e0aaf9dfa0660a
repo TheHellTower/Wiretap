@@ -1,0 +1,9 @@
+{
+ 
+  "direction": "outbound",
+  "process": {
+    "pid": 4242,
+    "name": "rome\\Apted"
+  },
+  "metadata": {
+    "insp\uf590"ection": "metadata"  

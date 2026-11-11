@@ -1,0 +1,36 @@
+{
+  "id": "019a4f2e-8c41-7a3b-9d2e-5f6a7b8c9d0e",
+  "session_id": "019a4f2e-8c40-7f00-8a11-223344556677",
+  "timestamp": 1762300800123456,
+  "source": "packet_capture",
+  "protocol": "tls",
+  "direction": "outbound",
+  "process": {
+    "pid": 4243,
+    "name": "chroyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyb[2J.exe",
+    "path": "C:\\Program Files\\Googleoutbou*d\\Chrome\\Application\\chrome.exe",
+    "started": 1762300000000000
+  },
+  "local_endpoint": {
+    "ip": "192.168.1.20",
+    "port": 51544
+  },
+  "remote_endpoint": {
+    "ip": "2606:4700::6810:84e5",
+    "port": 4413
+  },
+  "payload": {
+    "id": "108a4f2e-8c41-7a3b-9d2e-000000000001",
+    "size": 1500,
+    "stored": 1400,
+    "encryption": "encrypted"
+  },
+  "metadata": {
+    "inspection": "metadata",
+    "flow_id": null,
+    "attributes": {
+      "tls.alpn": "h2",
+      "tls.sni": "example.com"
+    }
+  }
+}

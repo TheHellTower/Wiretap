@@ -1,0 +1,20 @@
+{
+  "id": "019a4f2e-8c41-7a3b-9d2e-1f6a7b8c9d0e",
+  "session_id": "019a4f2e-8c40-7f00-8a11-223344556677",
+  "timestamp": 1762300800123456,
+  "source": "packet_capture",
+  "protocol": "tls",
+  "direction": "outbound",
+  "process": {
+    "pid": 4242,
+    "name": "chrome.exe",
+    "path": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+    "started": 1762300000000000
+  },
+  "local_endpoint": {
+    "ip": "192.168.1.20",
+    "port"		
+  "remote_enญญญญญญญญ@ญญญญญญญญญญญญญญญญญญญญญญญญ": "example.com"
+    }
+  }
+}

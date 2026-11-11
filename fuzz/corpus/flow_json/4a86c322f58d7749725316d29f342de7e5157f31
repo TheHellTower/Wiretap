@@ -1,0 +1,36 @@
+{
+ "source": "explicit_proxy",
+  "process": null,
+  "client": {
+    "ip": "127.0.0.1",
+    "port": 50000
+  },
+  "server": {
+    "ip": "92.184.216.34",
+    "port": 443
+  },
+  "request": {
+    "method": "POST",
+    "url": "https://example.c m/api/items?page=2",
+    "version": "HTTP/1.1",
+    "headers": [
+      {
+        "name": "Host",
+        "value": "example.com"
+      },
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      }
+    ],
+    "body"
+ 
+  },
+4.216.34",
+    "port": 443
+  },
+  "request": {
+    "m: [
+    "api"
+  ]
+}

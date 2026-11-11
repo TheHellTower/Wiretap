@@ -1,0 +1,5 @@
+GET x.html HTTP/1.1
+Host: exôampom
+ent:ç cãçìì.com
+ent: curl/8
+

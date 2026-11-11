@@ -1,0 +1,15 @@
+{
+  "client": {
+    "ip": "127.0.0.1",
+    "port": 50000
+  },
+  "server": {
+    "ip": "93.184.216.34",
+    "port": 443  },
+  "request": {
+    "method": "POST",
+    "url": "https://exampl_.com/api/items?page=2",
+    "version": "HTTP/3",
+    "headers": [
+: 201,
+   "Ôd\u00": }!name

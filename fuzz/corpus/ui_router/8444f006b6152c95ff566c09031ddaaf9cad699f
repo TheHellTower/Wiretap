@@ -1,0 +1,7 @@
+POST /api/rule; HTTP/1.1
+Host: 127.0.0.1:5000
+Cookie:Í¯Iretap?t01:500ç
+Cookie: wHost: 127.0.0.1:5000
+Cookie:Í¯Iretap?t01:500ç
+Cookie: wIIretap?t15.1:5000
+

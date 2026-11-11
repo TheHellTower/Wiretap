@@ -1,0 +1,6 @@
+POST /a/rules HTTP/1.1
+Host: 127.0.0.1:5000
+Cookie: 3n
+Origin: 1
+Host.1:500 
+

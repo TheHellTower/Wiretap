@@ -1,0 +1,13 @@
+{"protocol": "tls",
+  "direction": "outbound",
+  "process": {
+    "pid": 4242,
+    "name": "chromC:\\Program Files\\Google\\Chrome\\Applcrypted"
+  },
+  "metadata": {
+    "inspection": {
+ #     "t1ls.alpnÿÿÿÿÿÿÿ1": "h2",
+      "tls.sni": "example.com"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+POST /,piruley HTTP/1.1
+Host: 127.0.0.1:5000
+Cook1:5000
+gt: 1270
+Cookie:
+0.Cookie: 00
+Cookie:
+Cook.0.1:5000
+
+-

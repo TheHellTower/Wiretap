@@ -1,0 +1,39 @@
+# Supply-chain policy (cargo-deny). Run: cargo deny check
+# Also applied to the fuzz workspace: cargo deny --manifest-path fuzz/Cargo.toml check
+
+[graph]
+all-features = true
+
+[advisories]
+version = 2
+yanked = "deny"
+unmaintained = "all"
+ignore = []
+
+[licenses]
+version = 2
+# Permissive licenses only; anything else needs an explicit review entry here.
+# NCSA: LLVM libFuzzer, vendored by libfuzzer-sys (fuzz builds only).
+allow = ["MIT", "Apache-2.0", "Unlicense", "Unicode-3.0", "NCSA"]
+confidence-threshold = 0.93
+private = { ignore = true }
+# Reviewed: BSD-3-Clause (permissive) reference implementations that the fuzz workspace checks
+# wiretap-codec against (Google's Brotli port, Facebook's libzstd bindings). Never shipped.
+exceptions = [
+    { allow = ["BSD-3-Clause"], crate = "brotli" },
+    { allow = ["BSD-3-Clause"], crate = "alloc-no-stdlib" },
+    { allow = ["BSD-3-Clause"], crate = "alloc-stdlib" },
+    { allow = ["BSD-3-Clause"], crate = "zstd" },
+    { allow = ["BSD-3-Clause"], crate = "zstd-safe" },
+    { allow = ["BSD-3-Clause"], crate = "zstd-sys" },
+]
+
+[bans]
+multiple-versions = "deny"
+wildcards = "deny"
+allow-wildcard-paths = true
+
+[sources]
+unknown-registry = "deny"
+unknown-git = "deny"
+allow-registry = ["https://github.com/rust-lang/crates.io-index"]

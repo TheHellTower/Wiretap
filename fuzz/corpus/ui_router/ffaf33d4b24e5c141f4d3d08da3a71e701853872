@@ -1,0 +1,14 @@
+POST /,piruley HTTP/1.1
+Host: 127.0.0.1:5000
+Cookie:00
+Cookie: t00
+Cookie: wirt00
+Cookie: wiretap=t0k3n
+Origt: 126.0.0.1:5000
+Cookie: wir00
+Cookie:
+Cookie: wirt00
+Cookie: wiretap=t0k3¡
+Or0.1:5000
+
+-

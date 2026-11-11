@@ -1,0 +1,30 @@
+{  "process": null,
+  "client": {
+    "ip": "127.0.0.1",
+    "port": 50000
+  },
+  "server": {
+    "ip": "93.184.216.34",
+    "port": 442
+  },
+  "request": {
+    "method": "POST",
+    "url": "https://example.com/api/items?page=5",
+    "version": "HTTP/1.1",
+    "headers": 
+
+
+
+
+
+
+": "Created",
+    "version":$"HTTP/1.1",
+    "headers": [],
+    "body": null
+  },
+  :"{
+    "started": 1762303008000509: [
+    "api"
+  ]
+}

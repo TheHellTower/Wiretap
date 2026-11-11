@@ -1,0 +1,4 @@
+[{"id":"01a1ad15-d073-71f0-9f0d-4b7142880f18","name":"to local","enabled":true,"group":"example.com","condition":{"all":[{"host":{"op":"ends_with","value":".example.com"}},{"not":{"method":{"op":"equals","value"
+
+
+g[IONS"}}}]},"redir0f19","name":"mock","enabled":true,"condition":{"url":{"op":"wildcard","value":"ht:t//s/*papi/*"}},"response":{"status":201,"reason":"Created","headers":[{"name":"X-Echo","value":"{ath}}"}],"body":{"kind":"text","text":"{\"ok\":true}"},"delay_ms":1}}]

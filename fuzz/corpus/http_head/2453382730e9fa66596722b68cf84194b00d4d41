@@ -1,0 +1,11 @@
+GET3 / HTTP/1.1
+X:TP/1.2
+Content-Length: 4
+Traner-Encoding:
+X: y
+X: 
+Content-Length:
+X: y
+X: y
+X:: y
+

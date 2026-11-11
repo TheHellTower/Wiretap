@@ -1,0 +1,17 @@
+{
+"protocol": "tls",
+  "direction": "outbound",
+  "process": {
+    "pid": 424443
+  },
+  "payload": {
+    "id": "019a4f2e-8c41-7a3b-9d2e-000000000001",
+    "size": 1500,
+    "stored": 1400,
+    "encryption": "encrypted"
+  },
+  "metadata": {
+    "inspection": "intercepted",
+    "f  }
+  }
+}

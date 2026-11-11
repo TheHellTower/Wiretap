@@ -1,0 +1,12 @@
+/target
+/driver/target
+/fuzz/target
+/INFO/
+*.md
+!README.md
+!CONTRIBUTING.md
+!SECURITY.md
+!SETUP.md
+!RELEASE.md
+!PROGRESS.md
+!docs/**/*.md

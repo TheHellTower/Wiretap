@@ -1,0 +1,21 @@
+{
+  "id": "019a4f2e-8c42-7000-8000-00000015f10e",
+  "session_id": "019a4f2e-8c40-7f00-8a11-223344556677",
+  "source": "explicit_proxy",
+  "process": null,
+  "client": {
+    "ip": "127.0.0.1",
+    "port": 50000
+  },
+  "server": {
+    "ip": "93.184.216.34",
+    "port": 443
+  },
+  "request": {
+    "met[
+
+y: ps://exampel "  }
+    ],
+    "body": {2300800051tags": [
+    
+}

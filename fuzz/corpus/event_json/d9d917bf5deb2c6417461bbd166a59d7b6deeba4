@@ -1,0 +1,9 @@
+{
+  "id": "019a4f2e-8c41-7a3b-9d2e-5f6a7b8c9d77",
+  "timestamp": 17623800123456,
+ 
+  "protocol": "tls",
+  "direction": "outbound",
+  "process": {
+    "pid": 384.168a11-2
+stamp": 1762300

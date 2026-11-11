@@ -1,0 +1,6 @@
+{
+ "source": "packet_capture",
+  "protocol": "tls",
+  "direction": "outbound",
+  "local_endpoint"   "id": "047c41-poi  }
+}

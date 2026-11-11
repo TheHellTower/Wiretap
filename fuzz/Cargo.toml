@@ -1,0 +1,180 @@
+[package]
+name = "wiretap-fuzz"
+description = "libFuzzer harnesses for every Wiretap component and the dependency entry points it uses"
+version = "0.0.0"
+edition = "2024"
+publish = false
+
+[package.metadata]
+cargo-fuzz = true
+
+# Harnesses live in the library so `cargo test --no-default-features` can replay the corpus
+# and regression inputs on stable Rust without linking libFuzzer.
+[features]
+default = ["libfuzzer"]
+libfuzzer = ["dep:libfuzzer-sys"]
+
+[dependencies]
+arbitrary = "1.5.0"
+brotli = { version = "9.1.1", default-features = false, features = ["std"] }
+libfuzzer-sys = { version = "0.4.13", optional = true }
+miniz_oxide = { version = "0.9.1", default-features = false, features = ["with-alloc"] }
+serde = { version = "1.0.229", default-features = false, features = ["std"] }
+serde_json = { version = "1.0.154", default-features = false, features = ["std"] }
+wiretap-autoreply = { path = "../crates/wiretap-autoreply" }
+wiretap-capture = { path = "../crates/wiretap-capture" }
+wiretap-cli = { path = "../crates/wiretap-cli" }
+wiretap-codec = { path = "../crates/wiretap-codec" }
+wiretap-core = { path = "../crates/wiretap-core" }
+wiretap-driver-proto = { path = "../crates/wiretap-driver-proto" }
+wiretap-platform = { path = "../crates/wiretap-platform" }
+wiretap-protocol = { path = "../crates/wiretap-protocol" }
+wiretap-storage = { path = "../crates/wiretap-storage" }
+wiretap-tls = { path = "../crates/wiretap-tls" }
+wiretap-ui = { path = "../crates/wiretap-ui" }
+zstd = { version = "0.14.3", default-features = false }
+
+# Standalone workspace: fuzzing builds use nightly and sanitizer flags.
+[workspace]
+
+[profile.release]
+debug = 1
+overflow-checks = true
+
+[[bin]]
+name = "event_json"
+path = "fuzz_targets/event_json.rs"
+required-features = ["libfuzzer"]
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "flow_json"
+path = "fuzz_targets/flow_json.rs"
+required-features = ["libfuzzer"]
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "uuid_parse"
+path = "fuzz_targets/uuid_parse.rs"
+required-features = ["libfuzzer"]
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "storage_ops"
+path = "fuzz_targets/storage_ops.rs"
+required-features = ["libfuzzer"]
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "os_classify"
+path = "fuzz_targets/os_classify.rs"
+required-features = ["libfuzzer"]
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "driver_records"
+path = "fuzz_targets/driver_records.rs"
+required-features = ["libfuzzer"]
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "driver_ring"
+path = "fuzz_targets/driver_ring.rs"
+required-features = ["libfuzzer"]
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "http_head"
+path = "fuzz_targets/http_head.rs"
+required-features = ["libfuzzer"]
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "tls_hello"
+path = "fuzz_targets/tls_hello.rs"
+required-features = ["libfuzzer"]
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "tracker"
+path = "fuzz_targets/tracker.rs"
+required-features = ["libfuzzer"]
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "cli_args"
+path = "fuzz_targets/cli_args.rs"
+required-features = ["libfuzzer"]
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "rules"
+path = "fuzz_targets/rules.rs"
+required-features = ["libfuzzer"]
+
+[[bin]]
+name = "redirect_records"
+path = "fuzz_targets/redirect_records.rs"
+required-features = ["libfuzzer"]
+
+[[bin]]
+name = "tls_host"
+path = "fuzz_targets/tls_host.rs"
+required-features = ["libfuzzer"]
+
+[[bin]]
+name = "chunked"
+path = "fuzz_targets/chunked.rs"
+required-features = ["libfuzzer"]
+
+[[bin]]
+name = "ui_router"
+path = "fuzz_targets/ui_router.rs"
+required-features = ["libfuzzer"]
+
+[[bin]]
+name = "content_roundtrip"
+path = "fuzz_targets/content_roundtrip.rs"
+required-features = ["libfuzzer"]
+
+[[bin]]
+name = "content_decode"
+path = "fuzz_targets/content_decode.rs"
+required-features = ["libfuzzer"]
+
+[[bin]]
+name = "websocket"
+path = "fuzz_targets/websocket.rs"
+required-features = ["libfuzzer"]
+
+[[bin]]
+name = "http2"
+path = "fuzz_targets/http2.rs"
+required-features = ["libfuzzer"]
+
+[[bin]]
+name = "grpc"
+path = "fuzz_targets/grpc.rs"
+required-features = ["libfuzzer"]

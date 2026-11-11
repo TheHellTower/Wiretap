@@ -1,0 +1,5 @@
+POST /api/rs HTTP/1.1
+Host: 127.0.0.1:5000
+Cookie: wiretap=t0k3nej ;rtap=t0k3n
+Op::5000
+

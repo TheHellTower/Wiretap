@@ -1,0 +1,13 @@
+{
+"direction": "outbound",
+  "process": {"pid": 4242,
+    "name": "chrome.exe",
+    "started": 1762300000000000
+  },
+  "local_endpoint": {
+    "ip": "192.168.1.20",
+    "    "i ":p"2606:4700::6810:84e5",
+    "port"example.com"
+    }": "0
+  }
+}

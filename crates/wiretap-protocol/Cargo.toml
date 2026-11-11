@@ -1,0 +1,14 @@
+[package]
+name = "wiretap-protocol"
+description = "Bounded, panic-free decoders for HTTP/1.x message heads and TLS ClientHello metadata"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[dependencies]
+wiretap-codec.workspace = true
+wiretap-core.workspace = true
+
+[lints]
+workspace = true

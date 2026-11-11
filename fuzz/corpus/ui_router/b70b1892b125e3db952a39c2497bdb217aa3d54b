@@ -1,0 +1,19 @@
+POST /apifrulesa HTTP/1.1
+Host: 127.0.0.1:5000
+Coot: : 12700
+Cookie: wiretap=t0k3n
+Origi~: http://127.0.0.1:5000: 2500
+Cookie: wiretap=t0k3n
+Origi~:http://127.0.0.1:5000
+Coot: : 12700
+Cookie: wiretap=t0k3n
+Origi~: http://1p=t0k3n
+Osigin: .0.0.1:5000
+Coot: : 12700
+Cookie: wiretap=t0k3n
+Origi~: http://127.0.0.1:5000: 2500
+Cookie: wiretap=t0k3n
+Origi~:http://127.0.0.1:5000
+Coot: : 12700
+Coohttp://127.0.ý.1:5000$
+

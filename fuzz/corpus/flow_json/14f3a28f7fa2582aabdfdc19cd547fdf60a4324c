@@ -1,0 +1,24 @@
+{  "client": {
+    "ip": "127.0.0.1",
+    "port": 50000
+  },
+  "server": {
+    "ip": "93.184.216.34",
+    "port": 443
+  },
+  "request": {  "version": "HTTP/1.1",
+    "headers": [
+      {
+        "name": "Host",
+        "value": "example.@om"
+      },
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      }
+    ],
+    "body":
+
+ "93.184.216.34","id": "019a4f2e-8csponse_complete": 1ple.@om"
+    
+}

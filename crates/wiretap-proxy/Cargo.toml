@@ -1,0 +1,21 @@
+[package]
+name = "wiretap-proxy"
+description = "Explicit HTTP/1.1 proxy that records exchanges and applies automatic responses"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[dependencies]
+wiretap-autoreply.workspace = true
+wiretap-core.workspace = true
+wiretap-protocol.workspace = true
+
+[target.'cfg(windows)'.dependencies]
+wiretap-platform.workspace = true
+
+[target.'cfg(windows)'.dev-dependencies]
+wiretap-tls.workspace = true
+
+[lints]
+workspace = true

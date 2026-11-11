@@ -1,0 +1,8 @@
+POST /,piley HTTP/1.1
+Host: 127.0.0.1:5000
+Cookie: wire0.0.1:5000
+Cookie: wirewirt00
+Cookie: wiretap=t0k3n
+Orig.0.1:5000
+
+-

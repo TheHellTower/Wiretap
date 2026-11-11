@@ -1,0 +1,34 @@
+POST les HTTP/1.1
+H1:5000
+C~okie: writta=p0k3n
+Or: 1
+Host.1:500 
+1:/api/rules Higin: n
+Origin: 1
+Host.H1:5000
+C~okie: writta=pe0k3n
+Origin: 1
+Host.1:500 
+1:/api/rules HTTP/1.1
+H1:5000
+C~okie: w3n
+Or: 1
+Host.1:500 
+1:/api/rules Higin: n
+Origin: 1
+Host.H1:5000
+C~okie: writta=pe0k3n
+Origin: 1
+Host.1:500 
+1:/api/rules HTTP/1.1
+H1:50ritta=pe0k3n
+Origin: 1
+Host.H1:5000
+C~okie: writta=pe0k3n
+Origin: 1
+Host.1:500
+C~okie: writta=pe0k3n
+Host.1:500 
+1:/api 
+0:500 
+

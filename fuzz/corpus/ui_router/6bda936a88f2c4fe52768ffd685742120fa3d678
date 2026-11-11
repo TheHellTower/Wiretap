@@ -1,0 +1,5 @@
+POST /a HTTP/1.1
+Host: 127.0.0.1:5000
+Cookie: wIretap?t01:5000
+Cookie: wIretap?t00.1:5000
+

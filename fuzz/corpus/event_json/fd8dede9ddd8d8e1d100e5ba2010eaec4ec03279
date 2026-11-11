@@ -1,0 +1,7 @@
+{
+  "id": "019a4f2e-8c41-7a3b-9d2e-5f3344556677",
+  "timestamp": 17623008001234,
+  "source": "packet_capture",
+  "protocol": "tls",
+  "direction": "outbound",
+  "direction": "outbouin
