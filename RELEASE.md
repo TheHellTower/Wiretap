@@ -158,9 +158,9 @@ It produces `target\release-package\wiretap-<version>-x64.zip`, containing `wire
 
 ### Draft releases from CI
 
-`.github/workflows/release.yml` builds the same package on GitHub Actions and puts it in a **draft** release, ready for review. It runs when a version tag is pushed (`git tag v0.2.0; git push origin v0.2.0`, which must match the workspace version) or by hand (Actions, *release*, Run workflow). Re-running it updates the draft; it never changes a published release.
+`.github/workflows/release.yml` builds the package on GitHub Actions and puts it in a **draft** release: review it, edit the description if needed, and publish. It runs when a version tag is pushed (`git tag v0.2.0; git push origin v0.2.0`, which must match the workspace version) or by hand (Actions, *release*, Run workflow). Re-running it updates the draft; it never changes a published release.
 
-CI holds no signing keys, so the draft's archive is `wiretap-<version>-x64-unsigned.zip`: the driver and `wiretap.exe` are unsigned (the catalog is generated, not signed). Before publishing, build the signed package as above, replace the draft's archive and `SHA256SUMS.txt` with it, and go through the checklist (section 8).
+The package is **test-signed** (`wiretap-<version>-x64-test-signed.zip`, for lab machines and VMs in test-signing mode, SETUP.md 3b). Each run creates its own test certificate, signs the driver, its catalog and `wiretap.exe` with it (timestamped), and ships `WiretapTestSigning.cer`. The private key exists only on the throwaway runner, so nobody can sign anything else with a certificate users trusted. A production release still needs the Microsoft attestation-signed package built as above (sections 4b and 4d).
 ## 7. Versioning
 
 | What changes | Update |

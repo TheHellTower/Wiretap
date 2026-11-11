@@ -1,11 +1,11 @@
-# Builds the release package and puts it in a *draft* GitHub release, for review before
-# publishing. CI cannot sign: the driver needs Microsoft attestation signing and wiretap.exe the
-# maintainer's code-signing certificate (RELEASE.md 4b, 4d), so the draft carries an unsigned
-# package to check and replace with the signed one before publishing.
+# Builds the release package and puts it in a *draft* GitHub release, ready to review and publish.
+# The package is test-signed, for lab machines and VMs in test-signing mode (SETUP.md 3b): each
+# run creates its own test certificate, signs the driver, its catalog and wiretap.exe with it, and
+# ships the certificate's public part. The private key never leaves the throwaway runner.
+# Production releases need Microsoft attestation signing instead (RELEASE.md 4b).
 #
 # Runs on a version tag (v0.2.0, matching Cargo.toml) or by hand (Actions, release, Run workflow).
-# Re-running updates the same draft.
-name: release
+# Re-running updates the same draft.name: release
 
 on:
   push:
@@ -21,6 +21,8 @@ concurrency:
 
 env:
   CARGO_TERM_COLOR: always
+  # RFC 3161 timestamps keep the signatures valid after the one-year test certificate expires.
+  TIMESTAMP: http://timestamp.digicert.com
 
 jobs:
   draft:
@@ -52,13 +54,15 @@ jobs:
       - name: Install WDK
         run: winget install --id Microsoft.WindowsWDK.10.0.26100 --exact --source winget --accept-package-agreements --accept-source-agreements --disable-interactivity
 
-      - name: Build the driver package (layout check, INF validation, catalog; unsigned)
+      - name: Build and test-sign the driver package (layout check, INF validation, catalog)
         shell: pwsh
-        run: ./tools/build-driver.ps1 -Version "${{ steps.version.outputs.version }}.0"
+        run: ./tools/build-driver.ps1 -NewTestCert -TimestampUrl $env:TIMESTAMP -Version "${{ steps.version.outputs.version }}.0"
 
-      - name: Package
+      - name: Package (wiretap.exe signed with the same test certificate)
         shell: pwsh
-        run: ./tools/package-release.ps1 -Label '-unsigned'
+        run: |
+          $cert = Get-ChildItem Cert:\CurrentUser\My | Where-Object Subject -eq 'CN=Wiretap Test Driver Signing (lab only)' | Sort-Object NotBefore | Select-Object -Last 1
+          ./tools/package-release.ps1 -CertThumbprint $cert.Thumbprint -TimestampUrl $env:TIMESTAMP -IncludeTestCertificate -Label '-test-signed'
 
       - name: Create or update the draft release
         shell: pwsh
@@ -68,18 +72,30 @@ jobs:
           VERSION: ${{ steps.version.outputs.version }}
         run: |
           $dir = 'target/release-package'
-          $files = @("$dir/wiretap-$env:VERSION-x64-unsigned.zip", "$dir/SHA256SUMS.txt")
+          $files = @("$dir/wiretap-$env:VERSION-x64-test-signed.zip", "$dir/SHA256SUMS.txt")
           $commit = (git rev-parse --short HEAD).Trim()
           $date = (Get-Date).ToUniversalTime().ToString('yyyy-MM-dd HH:mm')
-          $notes = @"
-          Built by GitHub Actions on $date UTC from commit $commit.
+          # Literal here-string: Markdown backticks would be PowerShell escapes in a double-quoted one.
+          $notes = @'
+          Built by GitHub Actions on {date} UTC from commit {commit}.
 
-          > [!WARNING]
-          > Draft package, **unsigned**: WiretapDriver.sys and wiretap.exe are not signed, so Windows will not load this driver as it is (lab use needs the test signature: `tools\build-driver.ps1 -CertThumbprint`).
-          > Before publishing, replace it with the signed package: driver attestation-signed by Microsoft, wiretap.exe signed and timestamped (RELEASE.md, sections 4b, 4d and 6). Check the release checklist (RELEASE.md, section 8).
+          > [!IMPORTANT]
+          > **Test-signed package, for lab machines and VMs only.** The driver and `wiretap.exe` are signed with a test certificate made for this build alone; its private key existed only on the build machine and is gone. Windows loads the driver only in test-signing mode (Secure Boot off) with `WiretapTestSigning.cer` trusted: follow [SETUP.md, section 3b](https://github.com/{repo}/blob/main/SETUP.md). Never enable test signing on a machine you rely on.
 
-          See [PROGRESS.md](https://github.com/$env:GITHUB_REPOSITORY/blob/main/PROGRESS.md) for what this version does and what remains open.
-          "@
+          Install, in an elevated terminal in the unzipped folder:
+          ```powershell
+          bcdedit /set testsigning on      # Secure Boot must be off
+          certutil -addstore Root .\WiretapTestSigning.cer
+          certutil -f -addstore TrustedPublisher .\WiretapTestSigning.cer
+          Restart-Computer
+          # after the reboot, elevated again:
+          pnputil /add-driver .\driver\WiretapDriver.inf /install
+          .\wiretap.exe
+          ```
+          Check the download against `SHA256SUMS.txt`.
+
+          See [PROGRESS.md](https://github.com/{repo}/blob/main/PROGRESS.md) for what this version does and what remains open.
+          '@ -replace '\{date\}', $date -replace '\{commit\}', $commit -replace '\{repo\}', $env:GITHUB_REPOSITORY
           # gh.exe by name: PowerShell names are case-insensitive, so a function named like the
           # command would call itself.
           function Invoke-Gh { gh.exe @args; if ($LASTEXITCODE -ne 0) { throw "gh $($args[0..1] -join ' ') failed" } }
