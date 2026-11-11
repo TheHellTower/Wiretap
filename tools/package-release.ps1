@@ -12,11 +12,15 @@
 
 .PARAMETER IncludeTestCertificate
     Adds target\WiretapTestSigning.cer (lab packages with a test-signed driver only).
+
+.PARAMETER Label
+    Appended to the archive name, e.g. -unsigned for CI drafts awaiting signing.
 #>
 param(
     [string]$CertThumbprint,
     [string]$TimestampUrl,
-    [switch]$IncludeTestCertificate
+    [switch]$IncludeTestCertificate,
+    [string]$Label = ''
 )
 $ErrorActionPreference = 'Stop'
 $root = Split-Path $PSScriptRoot -Parent
@@ -34,7 +38,7 @@ try {
     $ErrorActionPreference = 'Stop'
 } finally { Pop-Location }
 
-$stage = Join-Path $root "target\release-package\wiretap-$version-x64"
+$stage = Join-Path $root "target\release-package\wiretap-$version-x64$Label"
 Remove-Item (Split-Path $stage) -Recurse -Force -ErrorAction SilentlyContinue
 New-Item -ItemType Directory (Join-Path $stage 'driver') | Out-Null
 Copy-Item (Join-Path $root 'target\release\wiretap.exe') $stage

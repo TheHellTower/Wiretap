@@ -156,6 +156,11 @@ Results go to `target\vm-test\`. A release needs this test to pass on Windows 10
 
 It produces `target\release-package\wiretap-<version>-x64.zip`, containing `wiretap.exe`, `driver\WiretapDriver.{sys,inf,cat}`, README, SETUP and SECURITY. It also writes `SHA256SUMS.txt`. Publish the checksums next to the archive.
 
+### Draft releases from CI
+
+`.github/workflows/release.yml` builds the same package on GitHub Actions and puts it in a **draft** release, ready for review. It runs when a version tag is pushed (`git tag v0.2.0; git push origin v0.2.0`, which must match the workspace version) or by hand (Actions, *release*, Run workflow). Re-running it updates the draft; it never changes a published release.
+
+CI holds no signing keys, so the draft's archive is `wiretap-<version>-x64-unsigned.zip`: the driver and `wiretap.exe` are unsigned (the catalog is generated, not signed). Before publishing, build the signed package as above, replace the draft's archive and `SHA256SUMS.txt` with it, and go through the checklist (section 8).
 ## 7. Versioning
 
 | What changes | Update |

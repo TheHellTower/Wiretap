@@ -84,8 +84,10 @@ if ($NewTestCert) {
     Export-Certificate -Cert $cert -FilePath (Join-Path $root 'target\WiretapTestSigning.cer') | Out-Null
     Write-Host "Created test certificate $CertThumbprint (public part: target\WiretapTestSigning.cer)"
 }
+$catalog = { Invoke-Checked (Join-Path $bin 'x86\Inf2Cat.exe') @("/driver:$out", '/os:10_VB_X64,10_CO_X64,10_NI_X64,10_GE_X64') }
 if (-not $CertThumbprint) {
-    Write-Warning 'No signing certificate given: the package is built but unsigned.'
+    & $catalog
+    Write-Warning 'No signing certificate given: the package (catalog included) is built but unsigned.'
     return
 }
 
@@ -94,7 +96,7 @@ $signtool = Join-Path $bin 'x64\signtool.exe'
 $sign = @('sign', '/fd', 'SHA256', '/s', 'My', '/sha1', $CertThumbprint)
 if ($TimestampUrl) { $sign += @('/tr', $TimestampUrl, '/td', 'SHA256') }
 Invoke-Checked $signtool ($sign + (Join-Path $out 'WiretapDriver.sys'))
-Invoke-Checked (Join-Path $bin 'x86\Inf2Cat.exe') @("/driver:$out", '/os:10_VB_X64,10_CO_X64,10_NI_X64,10_GE_X64')
+& $catalog
 Invoke-Checked $signtool ($sign + (Join-Path $out 'WiretapDriver.cat'))
 
 # A lab test certificate is not trusted on the build machine, so Windows reports the
